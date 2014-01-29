@@ -11,8 +11,10 @@ depends=('python2' 'gtk2' 'libwebkit' 'python2-markdown' 'pywebkitgtk')
 optdepends=('python2-gtkspell: spellcheck support')
 makedepends=('bzr')
 provides=('markdowner')
-source=('markdowner.desktop')
-sha256sums=('1544f0d6b1939657588c587fa3578cad4b5ba8fa349ed270bb16aa0c1982169b')
+source=('markdowner.desktop'
+        'markdowner.sh')
+sha256sums=('c069fef73c49405b744481c5e62e654d19f3940d731af061220753fba4835df3'
+            '88c04192feaa631f253da412401d28306149bc995cf6c907c9d351bf0b189cd3')
 
 _bzrtrunk="https://code.launchpad.net/~jezra/${_pkgname}/trunk"
 _bzrmod=$_pkgname
@@ -40,9 +42,10 @@ build() {
 package() {
   cd "$srcdir/$_bzrmod-build"
   sed -i 1s+python+python2+ "markdowner.py"
-  install -Dm755 markdowner.py "${pkgdir}/usr/bin/markdowner"
-  install -Dm755 icon.png "${pkgdir}/usr/share/icons/markdowner.png"
-  install -Dm755 ../markdowner.desktop "${pkgdir}/usr/share/applications/markdowner.desktop"
+  install -Dm755 markdowner.py "${pkgdir}/usr/share/markdowner/markdowner.py"
+  install -Dm644 icon.png "${pkgdir}/usr/share/markdowner/icon.png"
+  install -Dm644 ../markdowner.desktop "${pkgdir}/usr/share/applications/markdowner.desktop"
+  install -Dm755 ../markdowner.sh "${pkgdir}/usr/bin/markdowner"
 }
 
 # vim:set ts=2 sw=2 et:
